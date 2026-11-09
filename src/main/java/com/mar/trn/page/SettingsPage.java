@@ -36,7 +36,5 @@ public class SettingsPage implements Page {
         terminal.writer().printf(" Configuration:\033[K\n");
         terminal.writer().printf("  > Torrents Directory: %s\033[K\n", torrentsPath);
         terminal.writer().printf("  > Download Directory: %s\033[K\n", downloadsPath);
-        terminal.writer().printf("  > Max Active Torrents: 5\033[K\n");
-        terminal.writer().printf("  > Speed Limit: %d\033[K\n", speed.get());
     }
 }

@@ -45,7 +45,7 @@ public class DownloadingPage implements Page {
     @Override
     public void render(Terminal terminal) {
         terminal.writer().printf("\033[K %3.3s | %56.56s | %11s | %10s |\033[K\n",
-                "#", "Title", "Progress", "Peers"
+                "#", "Title", "% to end", "Peers"
         );
         AtomicInteger i = new AtomicInteger(1);
         for (Pair<String, TorrentSessionState> pair : torrentState) {
@@ -54,7 +54,7 @@ public class DownloadingPage implements Page {
             // 2. ЗАЩИТА ОТ NaN (деления на 0):
             double progress = 0.0;
             if (state.getPiecesTotal() > 0) {
-                progress = (double) state.getPiecesComplete() / state.getPiecesTotal() * 100;
+                progress = 100 - (double) state.getPiecesComplete() / state.getPiecesTotal() * 100;
             }
 
             double downloadedMb = (double) state.getDownloaded() / (1024 * 1024);
