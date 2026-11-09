@@ -7,6 +7,7 @@ import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
 import bt.torrent.TorrentSessionState;
+import com.mar.AppConfig;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.jline.terminal.Terminal;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,6 +26,9 @@ public class DownloadingPage implements Page {
     @Getter
     private final Tab tab;
 
+    private final Path torrentsPath;
+    private final Path downloadsPath;
+
     private File dir;
     private Storage storage;
     private Config config;
@@ -31,8 +36,10 @@ public class DownloadingPage implements Page {
 
     private final Set<Pair<String, TorrentSessionState>> torrentState = new CopyOnWriteArraySet<>();
 
-    public DownloadingPage(int order) {
+    public DownloadingPage(int order, AppConfig appConfig) {
         this.tab = new Tab("Downloading", this, order);
+        this.torrentsPath = appConfig.getTorrentsPath();
+        this.downloadsPath = appConfig.getDownloadsPath();
     }
 
     @Override
@@ -67,12 +74,12 @@ public class DownloadingPage implements Page {
     @SneakyThrows
     @Override
     public Thread onStart() {
-        dir = new File("./torrents");
+        dir = torrentsPath.toFile();
         if (!dir.exists()) {
             FileUtils.forceMkdir(dir);
         }
 
-        File downloadDir = new File("./downloads");
+        File downloadDir = downloadsPath.toFile();
         if (!downloadDir.exists()) {
             FileUtils.forceMkdir(downloadDir);
         }

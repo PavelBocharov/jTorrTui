@@ -3,8 +3,6 @@ package com.mar.trn.page;
 import lombok.Getter;
 import org.jline.terminal.Terminal;
 
-import java.util.concurrent.Callable;
-
 public class InfoPage implements Page {
 
     @Getter
