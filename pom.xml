@@ -127,6 +127,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-wrapper-plugin</artifactId>
+                <version>3.3.4</version>
+                <configuration>
+                    <!-- Укажите нужную вам версию Maven -->
+                    <mavenVersion>3.9.9</mavenVersion>
+                    <!-- Тип дистрибутива: bin (стандартный), only-script, source, script -->
+<!--                    <distributionType>bin</distributionType>-->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
